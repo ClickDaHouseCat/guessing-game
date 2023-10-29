@@ -1,25 +1,33 @@
 class GuessingGame {
     constructor() {
-      this.minRange = 0;
-      this.maxRange = 0;
+      this.min = null;
+      this.max = null;
+      this.currentGuess = null;
     }
 
     setRange(min, max) {
-      this.minRange = min;
-      this.maxRange = max;
+      this.min = min;
+      this.max = max;
     }
 
     guess() {
-      return Math.floor((this.minRange + this.maxRange) / 2);
-    }
-
+        if (this.min >= this.max) {
+          this.currentGuess = this.min;
+        } else {
+          this.currentGuess = Math.round((this.min + this.max) / 2);
+        }
+        return this.currentGuess;
+      }
     lower() {
-      this.maxRange = this.guess();
+      // Обновляем верхнюю границу так, чтобы она была строго меньше текущего предполагаемого числа
+      this.max = this.currentGuess - 1;
     }
 
     greater() {
-      this.minRange = this.guess() + 1;
+      // Обновляем нижнюю границу так, чтобы она была строго больше текущего предполагаемого числа
+      this.min = this.currentGuess + 1;
     }
   }
 
-module.exports = GuessingGame;
+
+  module.exports = GuessingGame;
